@@ -1,0 +1,49 @@
+name: Wireless Lab Automation
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  wireless-lab:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set Up Wireless Lab Documentation
+      run: |
+        echo "## Wireless Technology Lab Setup" >> WirelessLab.md
+        echo "### Part 1: Connect a Laptop to the Office WLAN" >> WirelessLab.md
+        echo "1. Install a Wireless Module to a Laptop." >> WirelessLab.md
+        echo "2. Connect Laptop to the Office WLAN with Employee SSID." >> WirelessLab.md
+        echo "3. Use the pre-shared key 'Cisco123' for authentication." >> WirelessLab.md
+        echo "4. Verify the IP address and access to 'office.srv'." >> WirelessLab.md
+
+        echo "### Part 2: Connect Devices with Bluetooth Technology" >> WirelessLab.md
+        echo "1. Enable Bluetooth on both Tablet and Bluetooth Speaker." >> WirelessLab.md
+        echo "2. Pair both devices and test the connection with a music player." >> WirelessLab.md
+
+        echo "### Part 3: Tether a Laptop to a Cellular Network via a Smartphone" >> WirelessLab.md
+        echo "1. Enable Bluetooth and tethering on the Smartphone." >> WirelessLab.md
+        echo "2. Connect and pair the Laptop to the Smartphone via Bluetooth." >> WirelessLab.md
+        echo "3. Verify the IP address and access 'office.srv'." >> WirelessLab.md
+
+        echo "### YouTube Video" >> WirelessLab.md
+        echo "Watch the full lab demonstration on YouTube: [Wireless Technology Lab Demo](https://youtu.be/KbJw4GhUNeI)" >> WirelessLab.md
+
+    - name: Commit Documentation
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add WirelessLab.md
+        git commit -m "Add wireless lab documentation"
+
+    - name: Upload Documentation Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: WirelessLabDocs
+        path: WirelessLab.md
